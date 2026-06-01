@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat — Document RAG</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="/static/css/style.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark px-4">
+    <a href="/" class="navbar-brand fw-bold">
+      <i class="bi bi-arrow-left me-2"></i>Document RAG
+    </a>
+    <div class="d-flex align-items-center gap-2">
+      <span id="nav-chat-name" class="text-white fw-semibold"></span>
+      <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#editChatModal">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteChatModal">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container-fluid py-4" style="max-width:1100px">
+    <div class="row g-4">
+
+      <!-- Left: Documents -->
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-folder2-open me-2"></i>Documents</span>
+            <span id="doc-count" class="badge bg-secondary">0</span>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+
+            <!-- Upload -->
+            <div id="upload-area" class="upload-area text-center p-3 rounded border border-dashed">
+              <i class="bi bi-cloud-upload fs-3 text-muted d-block mb-1"></i>
+              <p class="text-muted small mb-2">PDF, TXT or DOCX</p>
+              <input type="file" id="file-input" class="d-none" accept=".pdf,.txt,.docx" multiple/>
+              <button class="btn btn-sm btn-outline-primary" onclick="document.getElementById('file-input').click()">
+                Choose Files
+              </button>
+            </div>
+
+            <div id="upload-progress" class="d-none">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated w-100"></div>
+              </div>
+              <p class="text-muted small text-center mt-1 mb-0" id="upload-status">Uploading...</p>
+            </div>
+
+            <!-- Document list -->
+            <div id="doc-list" class="d-flex flex-column gap-2"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Chat -->
+      <div class="col-md-8">
+        <div class="card shadow-sm d-flex flex-column chat-card">
+          <div class="card-header bg-white fw-bold">
+            <i class="bi bi-chat-left-text me-2"></i>Ask a Question
+          </div>
+
+          <div id="chat-messages" class="card-body flex-grow-1 overflow-auto d-flex flex-column gap-3">
+            <div id="chat-empty" class="text-center text-muted my-auto">
+              <i class="bi bi-upload fs-2 d-block mb-2"></i>
+              Upload a document to start chatting.
+            </div>
+          </div>
+
+          <div class="card-footer bg-white">
+            <div class="input-group">
+              <input
+                type="text"
+                id="question-input"
+                class="form-control"
+                placeholder="Ask a question about your documents..."
+                disabled
+              />
+              <button class="btn btn-primary" id="ask-btn" disabled>
+                <i class="bi bi-send"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Edit Chat Modal -->
+  <div class="modal fade" id="editChatModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Edit Chat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+            <input type="text" id="edit-name" class="form-control"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea id="edit-desc" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="save-edit-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Chat Modal -->
+  <div class="modal fade" id="deleteChatModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Delete Chat</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          This will permanently delete this chat and all its documents.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/js/chat.js"></script>
+</body>
+</html>

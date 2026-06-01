@@ -1,0 +1,88 @@
+body {
+  min-height: 100vh;
+}
+
+.chat-card {
+  height: calc(100vh - 140px);
+}
+
+#chat-messages {
+  min-height: 0;
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.message-user {
+  align-self: flex-end;
+  background-color: #0d6efd;
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.message-assistant {
+  align-self: flex-start;
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+  border-bottom-left-radius: 2px;
+}
+
+.message-sources {
+  font-size: 0.78rem;
+  color: #6c757d;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.upload-area {
+  border: 2px dashed #dee2e6;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #0d6efd;
+}
+
+.doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+.doc-item .doc-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.thinking {
+  align-self: flex-start;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.chat-card-index {
+  height: 100%;
+  min-height: 180px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.chat-card-index:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+}
